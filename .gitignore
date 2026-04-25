@@ -1,0 +1,93 @@
+# ─────────────────────────────────────────────────────────────
+# Python
+# ─────────────────────────────────────────────────────────────
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+*.egg
+.eggs/
+.python-version
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# ─────────────────────────────────────────────────────────────
+# Environment & Secrets — NEVER commit these
+# ─────────────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ─────────────────────────────────────────────────────────────
+# Django
+# ─────────────────────────────────────────────────────────────
+db.sqlite3
+db.sqlite3-journal
+*.sqlite3
+staticfiles/
+media/
+*.log
+
+# ─────────────────────────────────────────────────────────────
+# React / Node (frontend/)
+# ─────────────────────────────────────────────────────────────
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ─────────────────────────────────────────────────────────────
+# Build artifacts
+# ─────────────────────────────────────────────────────────────
+dist/
+build/
+*.tsbuildinfo
+
+# ─────────────────────────────────────────────────────────────
+# OS files
+# ─────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ─────────────────────────────────────────────────────────────
+# IDE / Editor
+# ─────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ─────────────────────────────────────────────────────────────
+# Testing & Coverage
+# ─────────────────────────────────────────────────────────────
+htmlcov/
+.coverage
+.coverage.*
+.tox/
+.pytest_cache/
+coverage.xml
+*.cover
+.mypy_cache/
+.ruff_cache/
+
+# ─────────────────────────────────────────────────────────────
+# Local Docker / Compose overrides
+# ─────────────────────────────────────────────────────────────
+docker-compose.override.yml
+docker-compose.override.yaml

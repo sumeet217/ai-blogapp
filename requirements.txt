@@ -1,0 +1,25 @@
+# Core framework
+Django==6.0.4
+
+# Django dependencies
+asgiref==3.11.1
+sqlparse==0.5.3
+
+# PostgreSQL driver (used in production / Docker)
+psycopg2-binary==2.9.10
+
+# Django REST Framework
+djangorestframework==3.15.2
+
+# CORS headers for React frontend
+django-cors-headers==4.4.0
+
+# Groq AI SDK
+groq==1.1.2
+
+# WSGI server for production
+gunicorn==23.0.0
+whitenoise==6.8.2
+
+# Environment variable management
+python-dotenv==1.0.1

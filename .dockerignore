@@ -1,0 +1,90 @@
+# ─────────────────────────────────────────────────────────────
+# Git
+# ─────────────────────────────────────────────────────────────
+.git/
+.gitignore
+.gitlab-ci.yml
+
+# ─────────────────────────────────────────────────────────────
+# Python
+# ─────────────────────────────────────────────────────────────
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ─────────────────────────────────────────────────────────────
+# Virtual environments (never should be in the repo, but just in case)
+# ─────────────────────────────────────────────────────────────
+venv/
+.venv/
+env/
+ENV/
+
+# ─────────────────────────────────────────────────────────────
+# Node / frontend generated files
+# Frontend source is required because Docker builds React inside the image.
+# ─────────────────────────────────────────────────────────────
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.vite-temp/
+frontend/.env
+frontend/.env.*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ─────────────────────────────────────────────────────────────
+# Django runtime files
+# ─────────────────────────────────────────────────────────────
+db.sqlite3
+db.sqlite3-journal
+*.sqlite3
+staticfiles/
+media/
+*.log
+
+# ─────────────────────────────────────────────────────────────
+# OS files
+# ─────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+
+# IDE / Editor
+
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ─────────────────────────────────────────────────────────────
+# Docker meta files (not needed inside the image)
+# ─────────────────────────────────────────────────────────────
+Dockerfile
+docker-compose*.yaml
+docker-compose*.yml
+.dockerignore
+nginx/
+
+# ─────────────────────────────────────────────────────────────
+# Docs / Secrets
+# ─────────────────────────────────────────────────────────────
+README.md
+docs/
+.env
+*.env
+!.env.example

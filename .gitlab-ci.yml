@@ -1,0 +1,65 @@
+stages:
+  - build
+  - test
+  - push_to_dockerhub
+  - deploy
+
+variables:
+  IMAGE: sumeet02/ai-powered-blog:latest
+
+# ─────────────────────────────────────────────────────────────
+# Stage 1 — Build Docker image (Django + React included)
+# ─────────────────────────────────────────────────────────────
+build_job:
+  stage: build
+  script:
+    - echo "🔨 Building Docker image (React + Django)..."
+    - docker build -t $IMAGE .
+    - echo "✅ Build complete"
+  tags:
+    - dev
+
+# ─────────────────────────────────────────────────────────────
+# Stage 2 — Run tests
+# ─────────────────────────────────────────────────────────────
+test_job:
+  stage: test
+  script:
+    - echo "🧪 Running Django tests..."
+    - docker run --rm
+        -e USE_POSTGRES=False
+        -e SECRET_KEY=test-secret-key
+        -e GEMINI_API_KEY=test
+        $IMAGE python manage.py test --verbosity=2
+  tags:
+    - dev
+
+# ─────────────────────────────────────────────────────────────
+# Stage 3 — Push to DockerHub (main branch only)
+# ─────────────────────────────────────────────────────────────
+push_job:
+  stage: push_to_dockerhub
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+  script:
+    - echo "🚀 Pushing image to DockerHub..."
+    - echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin
+    - docker push $IMAGE
+    - echo "✅ Pushed $IMAGE"
+  tags:
+    - dev
+
+# ─────────────────────────────────────────────────────────────
+# Stage 4 — Deploy to EC2 (main branch only)
+# ─────────────────────────────────────────────────────────────
+deploy_job:
+  stage: deploy
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+  script:
+    - echo "🌐 Deploying to EC2..."
+    - docker compose pull
+    - docker compose up -d --force-recreate
+    - echo "✅ Deployment complete — app live on port 8000"
+  tags:
+    - dev
