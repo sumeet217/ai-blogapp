@@ -13,7 +13,7 @@ services:
              gunicorn blogs.wsgi:application --bind 0.0.0.0:8000 --workers 2"
 
     ports:
-      - "8000:8000"
+      - "80:8000"
 
     depends_on:
       db:
@@ -25,7 +25,7 @@ services:
     environment:
       SECRET_KEY: ${SECRET_KEY:-django-insecure-change-me-in-production}
       DEBUG: "False"
-      ALLOWED_HOSTS: "localhost,127.0.0.1,0.0.0.0"
+      ALLOWED_HOSTS: "*"
       USE_POSTGRES: "True"
       POSTGRES_DB: ${POSTGRES_DB:-postgres}
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
