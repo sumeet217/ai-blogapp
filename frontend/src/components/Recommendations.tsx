@@ -49,7 +49,7 @@ const Recommendations: React.FC<RecommendationsProps> = ({ postId }) => {
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem',
           color: 'var(--text-muted)', fontSize: '0.8rem', padding: '0.5rem 0' }}>
           <Loader2 size={14} style={{ animation: 'spin 0.8s linear infinite' }} />
-          Gemini is thinking…
+          AI is thinking…
         </div>
       </div>
     );
@@ -93,7 +93,7 @@ const Recommendations: React.FC<RecommendationsProps> = ({ postId }) => {
       </AnimatePresence>
       <div style={{ marginTop: '0.75rem', fontSize: '0.68rem', color: 'var(--text-muted)',
         display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-        <Sparkles size={10} /> Powered by Gemini AI
+        <Sparkles size={10} /> Powered by GROQ AI
       </div>
     </div>
   );
