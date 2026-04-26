@@ -23,7 +23,7 @@ services:
       - .env
 
     environment:
-      SECRET_KEY: ${SECRET_KEY:-django-insecure-change-me-in-production}
+      SECRET_KEY: ${SECRET_KEY}
       DEBUG: "False"
       ALLOWED_HOSTS: "*"
       USE_POSTGRES: "True"
