@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageSquare, X, Send } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 import { postsApi } from '../services/api';
+
 
 interface Message {
   id: number;
@@ -131,7 +133,11 @@ const Chatbot: React.FC = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.25 }}
                 >
-                  {msg.text}
+                  {msg.role === 'bot' ? (
+                    <ReactMarkdown>{msg.text}</ReactMarkdown>
+                  ) : (
+                    msg.text
+                  )}
                 </motion.div>
               ))}
 
