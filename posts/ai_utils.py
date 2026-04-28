@@ -99,7 +99,7 @@ Blog content available:
 {blog_summary}
 
 Respond in a helpful, conversational tone. If the question is about a blog topic, reference relevant posts.
-Keep responses concise (2-3 sentences max). Use markdown bold for post titles."""
+Keep responses concise (2-3 sentences max). Use plain text for post titles."""
                 },
                 {
                     "role": "user",
