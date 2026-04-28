@@ -230,7 +230,7 @@ const PostDetail: React.FC = () => {
             </div>
           </div>
           <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: '1.6' }}>
-            Writing about technology, development, and building cool things. Powered by Django + React + Gemini AI.
+            Writing about technology, development, and building cool things. Powered by AI.
           </p>
         </div>
       </aside>

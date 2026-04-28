@@ -80,7 +80,7 @@ const App: React.FC = () => {
           © 2026 <span className="footer-highlight">Sumeet's Blog</span>. All rights reserved.
         </div>
         <div className="footer-ai-badge">
-          ✦ Content recommendations, chatbot &amp; auto-tagging powered by Gemini AI
+          ✦ Content recommendations, chatbot &amp; auto-tagging powered by AI
         </div>
       </footer>
 
