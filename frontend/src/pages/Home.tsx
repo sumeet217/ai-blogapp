@@ -49,7 +49,7 @@ const Home: React.FC = () => {
           </h1>
 
           <p className="hero-subtitle">
-            Explore articles on technology, development, and innovation —
+            Explore articles on technology, development, and innovation
             enhanced with AI-powered recommendations and an intelligent chatbot.
           </p>
 
