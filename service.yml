@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: ai-blogapp-service
+  namespace: ai-blogapp
+spec:
+  selector:
+    app: ai-blogapp
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
+  type: NodePort
