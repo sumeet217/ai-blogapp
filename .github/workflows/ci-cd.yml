@@ -16,7 +16,7 @@ jobs:
   # Job 1: Build & Test
   
   build:
-    name: 🔨 Build & Test
+    name: Build & Test
     runs-on: ubuntu-latest
 
     steps:
@@ -54,7 +54,7 @@ jobs:
   # Job 2: Push to DockerHub (main branch only)
   
   push:
-    name: 🐳 Push to DockerHub
+    name: Push to DockerHub
     runs-on: ubuntu-latest
     needs: build
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
@@ -84,13 +84,13 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: Print image info
-        run: echo "✅ Pushed ${{ env.IMAGE_NAME }}:latest"
+        run: echo "Pushed ${{ env.IMAGE_NAME }}:latest"
 
   
   # Job 3: Deploy to EC2
   
   deploy:
-    name: 🚀 Deploy to EC2
+    name: Deploy to EC2
     runs-on: ubuntu-latest
     needs: push
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
@@ -134,5 +134,5 @@ jobs:
             # Clean up old images
             docker image prune -f
 
-            echo "✅ Deployed successfully!"
-            echo "🌐 Live at http://${{ secrets.EC2_HOST }}"
+            echo "Deployed successfully!"
+            echo "Live at http://${{ secrets.EC2_HOST }}"
