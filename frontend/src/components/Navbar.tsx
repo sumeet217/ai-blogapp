@@ -1,23 +1,39 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
-import { Search, Menu, X } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Search, Menu, X, Home, Shield} from 'lucide-react';
 import { postsApi } from '../services/api';
 import type { Post } from '../services/api';
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<Post[]>([]);
   const [searching, setSearching] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
+  const mobileSearchRef = useRef<HTMLDivElement>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
+      if (
+        searchRef.current && !searchRef.current.contains(e.target as Node) &&
+        mobileSearchRef.current && !mobileSearchRef.current.contains(e.target as Node)
+      ) {
+        setShowResults(false);
+      }
+      if (
+        (searchRef.current && !searchRef.current.contains(e.target as Node)) &&
+        (!mobileSearchRef.current || !mobileSearchRef.current.contains(e.target as Node))
+      ) {
         setShowResults(false);
       }
     };
@@ -47,8 +63,69 @@ const Navbar: React.FC = () => {
   const goToPost = (id: number) => {
     setShowResults(false);
     setQuery('');
+    setMobileOpen(false);
     navigate(`/post/${id}`);
   };
+
+  /** Shared search results dropdown */
+  const SearchResults = () => (
+    <AnimatePresence>
+      {showResults && results.length > 0 && (
+        <motion.div
+          className="search-results"
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -6 }}
+          transition={{ duration: 0.18 }}
+        >
+          {results.map((post) => (
+            <div
+              key={post.id}
+              className="search-result-item"
+              onClick={() => goToPost(post.id)}
+            >
+              <div className="search-result-title">{post.title}</div>
+              <div className="search-result-excerpt">
+                {post.excerpt || post.body?.slice(0, 80)}
+              </div>
+            </div>
+          ))}
+        </motion.div>
+      )}
+      {showResults && results.length === 0 && query && !searching && (
+        <motion.div
+          className="search-results"
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -6 }}
+        >
+          <div className="search-result-item" style={{ color: 'var(--text-muted)' }}>
+            No results for "{query}"
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+
+  /** Shared search input */
+  const SearchInput = () => (
+    <div className="search-input-wrapper">
+      <Search size={15} className="search-icon" />
+      <input
+        className="search-input"
+        type="text"
+        placeholder="Search posts…"
+        value={query}
+        onChange={(e) => handleSearch(e.target.value)}
+        onFocus={() => results.length > 0 && setShowResults(true)}
+      />
+      {searching && (
+        <div style={{ position: 'absolute', right: '0.75rem', width: 14, height: 14,
+          border: '2px solid var(--border)', borderTop: '2px solid var(--accent-blue)',
+          borderRadius: '50%', animation: 'spin 0.7s linear infinite' }} />
+      )}
+    </div>
+  );
 
   return (
     <nav className="navbar">
@@ -64,64 +141,13 @@ const Navbar: React.FC = () => {
         <span style={{ color: 'var(--text-muted)', fontWeight: 400, fontSize: '0.95rem' }}>Blog</span>
       </motion.div>
 
-      {/* Search */}
+      {/* Desktop Search */}
       <div className="navbar-center" ref={searchRef} style={{ position: 'relative' }}>
-        <div className="search-input-wrapper">
-          <Search size={15} className="search-icon" />
-          <input
-            className="search-input"
-            type="text"
-            placeholder="Search posts…"
-            value={query}
-            onChange={(e) => handleSearch(e.target.value)}
-            onFocus={() => results.length > 0 && setShowResults(true)}
-          />
-          {searching && (
-            <div style={{ position: 'absolute', right: '0.75rem', width: 14, height: 14,
-              border: '2px solid var(--border)', borderTop: '2px solid var(--accent-blue)',
-              borderRadius: '50%', animation: 'spin 0.7s linear infinite' }} />
-          )}
-        </div>
-
-        <AnimatePresence>
-          {showResults && results.length > 0 && (
-            <motion.div
-              className="search-results"
-              initial={{ opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.18 }}
-            >
-              {results.map((post) => (
-                <div
-                  key={post.id}
-                  className="search-result-item"
-                  onClick={() => goToPost(post.id)}
-                >
-                  <div className="search-result-title">{post.title}</div>
-                  <div className="search-result-excerpt">
-                    {post.excerpt || post.body?.slice(0, 80)}
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-          )}
-          {showResults && results.length === 0 && query && !searching && (
-            <motion.div
-              className="search-results"
-              initial={{ opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-            >
-              <div className="search-result-item" style={{ color: 'var(--text-muted)' }}>
-                No results for "{query}"
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <SearchInput />
+        <SearchResults />
       </div>
 
-      {/* Nav Links */}
+      {/* Desktop Nav Links */}
       <div className="navbar-links">
         <button className="navbar-link" onClick={() => navigate('/')}>Home</button>
         <a
@@ -133,28 +159,45 @@ const Navbar: React.FC = () => {
         >
           Admin
         </a>
-        <button
-          className="navbar-link"
-          style={{ display: 'flex', alignItems: 'center', gap: '0.35rem',
-            background: 'rgba(96,165,250,0.1)', border: '1px solid rgba(96,165,250,0.2)',
-            borderRadius: 'var(--radius-pill)', padding: '0.35rem 0.9rem',
-            color: 'var(--accent-blue)', cursor: 'default' }}
-        >
-          <span style={{ fontSize: '0.65rem' }}>✦</span> AI Powered
-        </button>
+
       </div>
 
-      {/* Mobile toggle */}
+      {/* Mobile hamburger toggle */}
       <button
         onClick={() => setMobileOpen((o) => !o)}
-        style={{ display: 'none', background: 'none', border: 'none', color: 'var(--text-primary)',
-          cursor: 'pointer', padding: '0.25rem' }}
         className="mobile-menu-btn"
+        aria-label="Toggle mobile menu"
       >
         {mobileOpen ? <X size={22} /> : <Menu size={22} />}
       </button>
+
+      {/* Mobile dropdown drawer */}
+      <div className={`mobile-menu-drawer ${mobileOpen ? 'open' : ''}`}>
+        {/* Mobile Search */}
+        <div className="mobile-search-wrapper" ref={mobileSearchRef} style={{ position: 'relative' }}>
+          <SearchInput />
+          <SearchResults />
+        </div>
+
+        {/* Mobile Nav Links */}
+        <div className="mobile-nav-links">
+          <button className="mobile-nav-link" onClick={() => { setMobileOpen(false); navigate('/'); }}>
+            <Home size={16} /> Home
+          </button>
+          <a
+            className="mobile-nav-link"
+            href="/admin/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Shield size={16} /> Admin Panel
+          </a>
+          
+        </div>
+      </div>
     </nav>
   );
 };
 
 export default Navbar;
+
