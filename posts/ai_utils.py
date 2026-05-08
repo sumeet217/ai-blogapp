@@ -9,6 +9,7 @@ Features:
 import logging
 from django.conf import settings
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -98,7 +99,7 @@ You help readers find relevant articles, answer questions about topics covered i
 Blog content available:
 {blog_summary}
 
-Respond in a helpful, conversational tone. If the question is about a blog topic, reference relevant posts.
+Respond in a helpful, conversational tone. If the question is about a blog topic, reference relevant post and explain about the post in brief .
 Keep responses concise (2-3 sentences max). Use plain text for post titles."""
                 },
                 {
