@@ -50,7 +50,7 @@ Excerpt: {post.excerpt[:200]}
 Available posts:
 {posts_context}
 
-Return ONLY the IDs of the 3 most relevant posts as a comma-separated list (e.g. "2,5,8").
+Return ONLY the IDs of the 3 most relevant posts as a comma-separated list.
 No explanation, just the IDs."""
 
         response = client.chat.completions.create(
