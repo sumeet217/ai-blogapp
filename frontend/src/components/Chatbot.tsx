@@ -14,7 +14,7 @@ interface Message {
 const WELCOME_MSG: Message = {
   id: 0,
   role: 'bot',
-  text: "Hi! I'm your AI blog assistant ✨ Ask me anything about the articles here, or let me help you find what you're looking for!",
+  text: "Hi! I'm your AI blog assistant, Ask me anything about the articles here, or let me help you find what you're looking for!",
 };
 
 const Chatbot: React.FC = () => {
