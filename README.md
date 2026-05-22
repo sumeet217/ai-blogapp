@@ -4,22 +4,22 @@ A full-stack blogging platform with a **Django REST API** backend and a **React 
 
 ---
 
-## ✨ Features
+## Features
 
 | Feature | Description |
 |---|---|
-| 📝 Blog Posts | Create, read, and manage posts via Django Admin |
-| 🤖 AI Chatbot | Floating chat widget powered by Groq — answers questions about your blog content |
-| 💡 Smart Recommendations | Groq suggests related posts on every article page |
-| 🏷️ Auto-Tagging | One-click AI tag generation for any post |
-| 🔍 Live Search | Debounced real-time search in the navbar |
-| 🌙 Beautiful Dark UI | Glassmorphism, animated hero, Framer Motion page transitions |
-| 🐳 Docker Ready | Multi-stage build: React compiled in Node, served by Django + WhiteNoise |
-| 🔄 CI/CD | Automated build → test → push → deploy pipeline via GitLab |
+| Blog Posts | Create, read, and manage posts via Django Admin |
+| AI Chatbot | Floating chat widget powered by Groq — answers questions about your blog content |
+| Smart Recommendations | Groq suggests related posts on every article page |
+| Auto-Tagging | One-click AI tag generation for any post |
+| Live Search | Debounced real-time search in the navbar |
+| Beautiful Dark UI | Glassmorphism, animated hero, Framer Motion page transitions |
+| Docker Ready | Multi-stage build: React compiled in Node, served by Django + WhiteNoise |
+| CI/CD | Automated build → test → push → deploy pipeline via GitLab |
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ```mermaid
 flowchart TD
@@ -51,7 +51,7 @@ flowchart LR
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |---|---|
@@ -66,7 +66,7 @@ flowchart LR
 
 ---
 
-## ⚙️ Environment Variables
+## Environment Variables
 
 Copy `.env.example` → `.env` and fill in your values:
 
@@ -76,9 +76,9 @@ cp .env.example .env   # (or create .env manually)
 
 | Variable | Description | Required |
 |---|---|---|
-| `SECRET_KEY` | Django secret key | ✅ Always |
-| `DEBUG` | `True` for dev, `False` for prod | ✅ Always |
-| `GROQ_API_KEY` | Groq API key for recommendations, chatbot, and auto-tagging | ✅ For AI features |
+| `SECRET_KEY` | Django secret key | Always |
+| `DEBUG` | `True` for dev, `False` for prod | Always |
+| `GROQ_API_KEY` | Groq API key for recommendations, chatbot, and auto-tagging | For AI features |
 | `USE_POSTGRES` | Set `"True"` to use PostgreSQL | Production |
 | `POSTGRES_DB` | Database name | Production |
 | `POSTGRES_USER` | Database user | Production |
@@ -96,7 +96,7 @@ cp .env.example .env   # (or create .env manually)
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 Django-blog-cicd/
@@ -132,7 +132,7 @@ Django-blog-cicd/
 
 ---
 
-## 🚀 Run Locally (Development)
+## Run Locally (Development)
 
 ### Prerequisites
 - Python 3.11+ with pip
@@ -179,7 +179,7 @@ Open **http://localhost:8000/admin** to manage posts.
 
 ---
 
-## 🐳 Run with Docker Compose
+## Run with Docker Compose
 
 ```bash
 # Build image (compiles React + packages Django)
@@ -209,10 +209,10 @@ docker exec -it django_app bash   # Shell into container
 
 ---
 
-## 🤖 AI Features Guide
+## AI Features Guide
 
 ### 1. AI Chatbot
-Click the **✦ floating button** (bottom-right) on any page. Ask anything:
+Click the floating button (bottom-right) on any page. Ask anything:
 - *"What posts do you have about Python?"*
 - *"Summarize the latest article"*
 - *"What topics are covered here?"*
@@ -221,13 +221,13 @@ Click the **✦ floating button** (bottom-right) on any page. Ask anything:
 Open any post — the sidebar shows **AI Picks for You**, 3 related posts selected by Groq based on title, tags, and content.
 
 ### 3. Auto-Tagging
-On any post detail page, click **✦ AI Auto-Tag**. Groq analyzes the content and generates 3–6 relevant tags instantly.
+On any post detail page, click **AI Auto-Tag**. Groq analyzes the content and generates 3–6 relevant tags instantly.
 
-> **For admins**: In Django Admin → Posts list, select posts and use the **🤖 Auto-tag with GROQ AI** bulk action.
+> **For admins**: In Django Admin → Posts list, select posts and use the **Auto-tag with GROQ AI** bulk action.
 
 ---
 
-## 🔌 API Endpoints
+## API Endpoints
 
 | Method | Endpoint | Description |
 |---|---|---|
@@ -240,7 +240,7 @@ On any post detail page, click **✦ AI Auto-Tag**. Groq analyzes the content an
 
 ---
 
-## ☁️ AWS EC2 Setup (GitLab Runner)
+## AWS EC2 Setup (GitLab Runner)
 
 ```bash
 # Install GitLab runner on EC2
@@ -258,7 +258,7 @@ sudo systemctl restart gitlab-runner
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
 | Blog Home | Post Detail + AI | AI Chatbot |
 |---|---|---|
